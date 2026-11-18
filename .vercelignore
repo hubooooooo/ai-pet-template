@@ -1,0 +1,7 @@
+# 部署时不上传的文件：密钥绝不能上传
+.env
+.env.*
+!.env.example
+node_modules
+dist
+.git

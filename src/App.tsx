@@ -317,14 +317,14 @@ export function App() {
           if (petRef.current.sleeping) wake()
           setHearing(true)
         },
-        onBark: (count) => {
+        onReply: (count) => {
           setHearing(false)
           setSpeaking(true)
           bond(0.5)
           const replies = PET.lines.soundReply
           say(fill(replies[Math.min(count, replies.length) - 1], petRef.current.name), 2200)
         },
-        onBarkEnd: () => setSpeaking(false),
+        onReplyEnd: () => setSpeaking(false),
       })
       setListening(true)
       say(line('micOn'), 2500)

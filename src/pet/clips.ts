@@ -100,7 +100,7 @@ interface ConfigFile {
 }
 
 /**
- * 探测 public/clips/ 里有哪些片段。没有 idle.mp4 时返回 null，界面会退回实时 3D。
+ * 探测 public/clips/ 里有哪些片段。没有 idle.mp4 时返回 null，界面会显示"还没有宠物视频"的提示。
  * 开发服务对不存在的文件会返回网页，所以要看返回的类型是不是视频。
  */
 export async function probeClips(): Promise<ClipSet | null> {

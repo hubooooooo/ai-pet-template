@@ -16,6 +16,8 @@
    - 国内网络很慢或失败时，可以改用镜像：`npm install --registry=https://registry.npmmirror.com`。
 4. **确认成功**：运行 `npm run build`，看到 `built in` 字样即为成功。
 
+第 3、4 步由你连续执行，不需要学生做什么；做完后再一起告诉学生结果。
+
 ## 完成标准
 
 - `node -v` 显示 v20 或更高。

@@ -1,14 +1,14 @@
 // 语音互动：不做语音识别，只用麦克风的音量判断"你在说话"和"你说完了"，
-// 说完后播放几声狗叫作为回应。全部在本机完成，不需要联网，任何手机浏览器都能用。
+// 说完后播放几声宠物的叫声作为回应。全部在本机完成，不需要联网，任何手机浏览器都能用。
 // 默认叫声素材的来源见 public/sounds/CREDITS.md。
 
 export interface VoiceReplyHandlers {
   /** 听到你开始说话 */
   onHearStart: () => void
   /** 你说完了，马上要叫；count 是叫几声，ms 是叫声总时长 */
-  onBark: (count: number, ms: number) => void
+  onReply: (count: number, ms: number) => void
   /** 叫完了，重新开始听 */
-  onBarkEnd: () => void
+  onReplyEnd: () => void
 }
 
 export interface VoiceReplySession {
@@ -41,7 +41,7 @@ async function ensureAudio() {
 }
 
 /** 叫 count 声，返回总时长（毫秒）。每声随机挑一个素材并略微变调，听起来不会一模一样。 */
-export async function playBarks(count: number): Promise<number> {
+export async function playSounds(count: number): Promise<number> {
   const a = await ensureAudio()
   let t = a.ctx.currentTime + 0.05
   const start = t
@@ -124,11 +124,11 @@ export async function startVoiceReply(h: VoiceReplyHandlers): Promise<VoiceReply
           // 说得越久，回应的叫声越多
           const count = talked < 1200 ? 1 : talked < 3200 ? 2 : 3
           mutedUntil = now + 5000 // 先占住，等知道实际时长再改
-          void playBarks(count).then((ms) => {
+          void playSounds(count).then((ms) => {
             if (stopped) return
             mutedUntil = performance.now() + ms + 350
-            h.onBark(count, ms)
-            window.setTimeout(() => !stopped && h.onBarkEnd(), ms)
+            h.onReply(count, ms)
+            window.setTimeout(() => !stopped && h.onReplyEnd(), ms)
           })
         }
       }

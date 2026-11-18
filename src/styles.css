@@ -184,7 +184,7 @@ button {
   background: rgba(255, 255, 255, 0.55);
 }
 
-/* 中间：3D 舞台铺满整个页面，顶部和底部的控件浮在上面 */
+/* 中间：宠物舞台铺满整个页面，顶部和底部的控件浮在上面 */
 .stage {
   position: absolute;
   inset: 0;

@@ -101,9 +101,9 @@ function parse(raw: string): { messages: Msg[]; pet: PetInfo } {
       mood: num(p.mood, 60),
       energy: num(p.energy, 60),
       affection: num(p.affection, 10),
-      species: str(p.species, '小狗', 20),
-      personality: str(p.personality, '粘人、好奇', 60),
-      sound: str(p.sound, '汪', 6),
+      species: str(p.species, '小宠物', 40),
+      personality: str(p.personality, '粘人、好奇', 100),
+      sound: str(p.sound, '嗷', 12),
       hour: Number.isInteger(p.hour) && (p.hour as number) >= 0 && (p.hour as number) < 24 ? (p.hour as number) : chinaHour(),
     },
   }

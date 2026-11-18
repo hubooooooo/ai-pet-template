@@ -10,33 +10,45 @@
 
 ## 步骤
 
-1. **登录 Vercel**：运行 `npx vercel login`。
-   - 命令会给出一个网址，请学生在浏览器打开并登录。没有账号的话，选用 GitHub 或邮箱注册，免费。
-   - 等学生说登录好了再继续。用 `npx vercel whoami` 确认。
-2. **第一次部署**：运行 `npx vercel deploy --prod --yes`。
-   - 会自动创建项目并构建，最后输出 `Production URL`，就是公开网址。
-3. **配置模型密钥**：部署好的网站还没有密钥，聊天会是模拟回复。密钥由**学生自己**填写，有两种方式：
-   - **网页后台**（推荐给零基础学生）：
-     1. 打开 Vercel 网站，进入这个项目 → Settings → Environment Variables。
-     2. 照着本地 `.env` 文件，逐项添加 `LLM_API_KEY`、`LLM_BASE_URL`、`LLM_MODEL`、`LLM_EXTRA_BODY`（如果有）。
-     3. 环境选 Production。
-   - **命令行**：运行 `npx vercel env add LLM_API_KEY production`，命令会提示输入值，由学生自己粘贴。其他几项不敏感，可以由你来添加。
-4. **重新部署**让设置生效：再运行一次 `npx vercel deploy --prod --yes`。
-5. **线上测试**：请学生用**手机流量**（不连 WiFi）打开公开网址，按阶段 7 的清单试一遍。
+部署用 Vercel 的命令行工具。**登录**这一步会一直等待学生在浏览器里操作，在你的终端里运行会卡住，所以由学生在自己的终端里运行。其余步骤由你来运行。
+
+1. **请学生打开一个终端**，进入项目文件夹：
+   - Mac：打开"终端"，输入 `cd `（cd 后面有个空格），把项目文件夹拖进窗口，回车。
+   - Windows：在项目文件夹的地址栏输入 `powershell`，回车。
+   - 如果他的 AI 工具自带终端（Cursor、VS Code、Trae），用那个即可。
+2. **请学生运行登录命令**（把这行原样发给他）：
+
+   ```
+   npx --yes vercel@latest login
+   ```
+
+   命令会显示一个网址，请学生用浏览器打开，登录或注册（可以用 GitHub 或邮箱，免费），确认授权后回来告诉你。
+3. **你来确认登录**：运行 `npx --yes vercel@latest whoami`，能显示用户名即为成功。
+4. **你来部署**：运行 `npx --yes vercel@latest deploy --prod --yes`。
+   - 会自动创建项目并构建，输出里的 `Production URL` 就是公开网址。
+   - 项目里的 `.vercelignore` 保证 `.env` 不会被上传，**不要删除这个文件**。
+5. **学生配置密钥**：部署好的网站还没有密钥，聊天会是模拟回复。请学生：
+   1. 打开 https://vercel.com ，进入这个项目 → Settings → Environment Variables。
+   2. 照着本地 `.env` 添加 `LLM_API_KEY`、`LLM_BASE_URL`、`LLM_MODEL`，以及 `LLM_EXTRA_BODY`（如果有）。
+   3. 环境选 Production，保存。
+
+   密钥这一项由学生自己粘贴。其他几项不敏感，你可以把值发给他照着填。
+6. **你来重新部署**让设置生效：再运行一次第 4 步的命令。
+7. **线上测试**：请学生用**手机流量**（不连 WiFi）打开公开网址，按阶段 7 的清单试一遍。
 
 ## 强烈建议：设置访问口令
 
 公开网址谁都能打开。别人在你的宠物上聊天，花的是你的模型额度。
 
-- 在 Vercel 里再添加一个环境变量 `ACCESS_CODE`，值由学生自己定，然后重新部署。
+- 请学生在 Vercel 后台再添加一个环境变量 `ACCESS_CODE`，值由他自己定，然后你重新部署。
 - 设置后，访问者第一次聊天时要输入口令，之后同一台手机会记住。
 - 没有口令的人仍然能看宠物、摸宠物，只是不能聊天。
 
 ## 之后怎么更新
 
-每次改完代码，再运行一次 `npx vercel deploy --prod --yes`，线上就会更新。
+每次改完代码，再运行一次 `npx --yes vercel@latest deploy --prod --yes`，线上就会更新。
 
 ## 完成标准
 
 - 有公开网址，手机流量下能打开并正常聊天。
-- 密钥只配置在 Vercel 后台，没有出现在代码里。
+- 密钥只配置在 Vercel 后台，没有出现在代码和聊天里。

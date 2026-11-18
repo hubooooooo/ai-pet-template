@@ -13,14 +13,23 @@
 1. 打开 https://platform.deepseek.com ，用手机号注册并登录。
 2. 在"充值"页面充一点钱。聊天用量很小，**10 元能用很久**。
 3. 在"API Keys"页面创建一个密钥，**复制下来，先不要关闭页面**（有的平台只显示一次）。
-4. 在项目文件夹里，把 `.env.example` 复制一份，改名为 `.env`（这一步你可以替学生做）。
-5. **学生自己**用编辑器打开 `.env`，把密钥粘贴到 `LLM_API_KEY=` 后面，保存。
+4. **你来**把 `.env.example` 复制一份，命名为 `.env`。
+   - 注意：文件名以点开头，Mac 的访达默认看不到它；Windows 的记事本另存时可能变成 `.env.txt`。所以这个文件由你来创建，不要让学生自己建。
+5. **你来**帮学生用文本编辑器打开它：
+   - Mac：运行 `open -e .env`。
+   - Windows：运行 `notepad .env`。
+   - 如果学生用的 AI 工具自带编辑器（如 Cursor、VS Code、Trae），告诉他在左侧文件列表里点开 `.env`。
+6. **学生自己**把密钥粘贴到 `LLM_API_KEY=` 后面（等号后面不要有空格），保存并关闭。
 
 > 学生想用其他模型（通义千问、豆包、智谱、Kimi 等）也可以：`.env.example` 里列出了各家的接口地址。换的时候要同时改 `LLM_BASE_URL` 和 `LLM_MODEL`，模型名以对方平台的文档为准，并且删掉 `LLM_EXTRA_BODY` 这一行（它是 DeepSeek 专用的设置）。
 
 ## 你来做的
 
-1. 确认 `.env` 存在、`LLM_API_KEY` 有值。**不要把值读出来显示给学生，也不要复述它。**
+1. 确认密钥已填好。**不要打开或读取 `.env`**，只运行下面这条只输出数字的命令：
+   - Mac / Linux：`grep -c '^LLM_API_KEY=.' .env`
+   - Windows（PowerShell）：`(Select-String -Path .env -Pattern '^LLM_API_KEY=.').Count`
+
+   输出 `1` 表示填好了，`0` 表示还是空的。
 2. 确认 `.gitignore` 里有 `.env`（模板已包含）。告诉学生：这能保证密钥不会被上传到网上。
 3. 重启 `npm run dev`（`.env` 改动后开发服务会自动重启，没有重启就手动重启）。
 4. 请学生和宠物聊几句，然后检查：
